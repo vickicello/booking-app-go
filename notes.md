@@ -23,3 +23,4 @@
 ## conditionals
 
 * uses traditional `if/else/else if` syntax
+* can also use switch statements
