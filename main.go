@@ -21,18 +21,31 @@ func main() {
 
 	// If setting a var inline, Go can infer the datatype ("" is a string, 5 is an integer)
 	// If you're not going to set it right away, you'll need to declare the dataType:
-	// Like `var userName string` or `var userTickets int`
-	var userName string
+	// Like `var firstName string` or `var userTickets int`
+	var firstName string
+	var lastName string
+	var email string
 	var userTickets uint
 
 	// get user input
-	fmt.Println("What is your username?")
-	fmt.Scan(&userName)
+	fmt.Println("What is your first name?")
+	// Need to add the pointer (&) to show where the firstName value lives in memory
+	// variable is firstName
+	// pointer is &firstName - another var that points to the memory address of the firstName var
+	// pointers are used in C, C++ - they might be used in other languages but aren't exposed to us as devs
+
+	// So now the Scan function can grab the user input and assign it to the firstName var in memory
+	fmt.Scan(&firstName)
+	fmt.Println("What is your last name?")
+	fmt.Scan(&lastName)
+
+	fmt.Println("What is your email?")
+	fmt.Scan(&email)
 
 	fmt.Println("How many tickets do you want?")
 	fmt.Scan(&userTickets)
-	fmt.Printf("User %v bought %v tickets.\n", userName, userTickets)
-
+	fmt.Printf("User %v %v bought %v tickets.\n", firstName, lastName, userTickets)
+	fmt.Printf("You will receive a verification email at %v.\n", email)
 	remainingTickets = conferenceTickets - userTickets
 	fmt.Printf("There are now %v tickets remaining\n", remainingTickets)
 }
