@@ -13,3 +13,13 @@
 * you can't mix datatypes in an array
 * slices are an abstraction of an array that allow for flexible sizing 
 * can be declared like `var foo []string` and you can use append() to add to the slice
+
+
+## loops
+
+* Go only uses for loops, no while or until (but you can basically do an until/while by adding a condition after `for` like `for remainingTickets > 0`...or you could make an infinite loop with `for true` which is hte same as just using `for` without a condition)
+* use `break` to exit the loop, or `continue` skip the rest of this iteration and move to the next
+
+## conditionals
+
+* uses traditional `if/else/else if` syntax

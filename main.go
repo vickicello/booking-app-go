@@ -3,7 +3,10 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 // define the entrypoint - needs to be func main
 func main() {
@@ -19,51 +22,78 @@ func main() {
 	fmt.Println("Get your tickets for the", conferenceName, "here.")
 	fmt.Println("We have", remainingTickets, "tickets left.")
 
-	// Create an array of strings
-	// Arrays in Go have a fixed size (50 elements in our case)
-	// example: var bookings = [50]string
+	// Use a for loop to continually add new user bookings
+	for {
 
-	// Slices are an abstraction of an Array in Go
-	// They allow for variable length arrays or can have a sub-array
-	// Also index-based but will resize if needed (note how no size is given)
-	var bookings []string
+		// Create an array of strings
+		// Arrays in Go have a fixed size (50 elements in our case)
+		// example: var bookings = [50]string
 
-	// You can also initialize the slice like this: var bookings = []string{} - empty slice assignment
-	// Or like this: bookings := []string{} - syntactic sugar version
+		// Slices are an abstraction of an Array in Go
+		// They allow for variable length arrays or can have a sub-array
+		// Also index-based but will resize if needed (note how no size is given)
+		var bookings []string
 
-	// If setting a var inline, Go can infer the datatype ("" is a string, 5 is an integer)
-	// If you're not going to set it right away, you'll need to declare the dataType:
-	// Like `var firstName string` or `var userTickets int`
-	var firstName string
-	var lastName string
-	var email string
-	var userTickets uint
+		// You can also initialize the slice like this: var bookings = []string{} - empty slice assignment
+		// Or like this: bookings := []string{} - syntactic sugar version
 
-	// get user input
-	fmt.Println("What is your first name?")
-	// Need to add the pointer (&) to show where the firstName value lives in memory
-	// variable is firstName
-	// pointer is &firstName - another var that points to the memory address of the firstName var
-	// pointers are used in C, C++ - they might be used in other languages but aren't exposed to us as devs
+		// If setting a var inline, Go can infer the datatype ("" is a string, 5 is an integer)
+		// If you're not going to set it right away, you'll need to declare the dataType:
+		// Like `var firstName string` or `var userTickets int`
+		var firstName string
+		var lastName string
+		var email string
+		var userTickets uint
 
-	// So now the Scan function can grab the user input and assign it to the firstName var in memory
-	fmt.Scan(&firstName)
-	fmt.Println("What is your last name?")
-	fmt.Scan(&lastName)
+		// get user input
+		fmt.Println("What is your first name?")
+		// Need to add the pointer (&) to show where the firstName value lives in memory
+		// variable is firstName
+		// pointer is &firstName - another var that points to the memory address of the firstName var
+		// pointers are used in C, C++ - they might be used in other languages but aren't exposed to us as devs
 
-	fmt.Println("What is your email?")
-	fmt.Scan(&email)
+		// So now the Scan function can grab the user input and assign it to the firstName var in memory
+		fmt.Scan(&firstName)
+		fmt.Println("What is your last name?")
+		fmt.Scan(&lastName)
 
-	fmt.Println("How many tickets do you want?")
-	fmt.Scan(&userTickets)
-	fmt.Printf("User %v %v bought %v tickets.\n", firstName, lastName, userTickets)
-	fmt.Printf("You will receive a verification email at %v.\n", email)
-	remainingTickets = conferenceTickets - userTickets
+		fmt.Println("What is your email?")
+		fmt.Scan(&email)
 
-	// Add each user that booked to the slice - will select the next available index
-	bookings = append(bookings, firstName+" "+lastName)
-	fmt.Printf("Here are all of our bookings: %v\n", bookings)
-	fmt.Printf("There are now %v tickets remaining\n", remainingTickets)
+		fmt.Println("How many tickets do you want?")
+		fmt.Scan(&userTickets)
+
+		if userTickets <= remainingTickets {
+			remainingTickets = conferenceTickets - userTickets
+
+			fmt.Printf("User %v %v bought %v tickets.\n", firstName, lastName, userTickets)
+			fmt.Printf("You will receive a verification email at %v.\n", email)
+
+			// Add each user that booked to the slice - will select the next available index
+			bookings = append(bookings, firstName+" "+lastName)
+
+			// grab just the first name of the booking to display to the terminal
+			// first create a new slice
+			// although this fails when you run it since the firstNames slice keeps getting reinitialized
+			firstNames := []string{}
+			// iterate over the bookings slice - _ is a blank identifier for index,
+			// since we need index to loop over the range, but we won't actually use it anywhere.
+			for _, booking := range bookings {
+				var names = strings.Fields(booking)
+				firstNames = append(firstNames, names[0])
+			}
+
+			fmt.Printf("Here are all of our bookings: %v\n", firstNames)
+			fmt.Printf("There are now %v tickets remaining\n", remainingTickets)
+
+			if remainingTickets == 0 {
+				fmt.Println("Sorry, the conference is sold out!")
+				break
+			}
+		} else {
+			fmt.Printf("Only %v tickets remain, so you cannot book %v tickets.\n", remainingTickets, userTickets)
+		}
+	}
 }
 
 // to execute the program:
