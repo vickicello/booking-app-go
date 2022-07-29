@@ -28,6 +28,9 @@ func main() {
 	// Also index-based but will resize if needed (note how no size is given)
 	var bookings []string
 
+	// You can also initialize the slice like this: var bookings = []string{} - empty slice assignment
+	// Or like this: bookings := []string{} - syntactic sugar version
+
 	// If setting a var inline, Go can infer the datatype ("" is a string, 5 is an integer)
 	// If you're not going to set it right away, you'll need to declare the dataType:
 	// Like `var firstName string` or `var userTickets int`
@@ -59,12 +62,7 @@ func main() {
 
 	// Add each user that booked to the slice - will select the next available index
 	bookings = append(bookings, firstName+" "+lastName)
-	fmt.Printf("The whole slice: %v\n", bookings)
-	fmt.Printf("Just this user: %v\n", bookings[0])
-
-	// Look at the type and size of the slice
-	fmt.Printf("Type: %T\n", bookings)
-	fmt.Printf("Length: %v\n", len(bookings))
+	fmt.Printf("Here are all of our bookings: %v\n", bookings)
 	fmt.Printf("There are now %v tickets remaining\n", remainingTickets)
 }
 
