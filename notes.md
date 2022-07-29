@@ -24,3 +24,11 @@
 
 * uses traditional `if/else/else if` syntax
 * can also use switch statements
+
+## functions and return values
+
+* functions are declared with `func <funcName>()` 
+* parameters for the function need to specify the type
+* if a return value is used, you also need to specify the type of the return value like `func foo(mySlice []string) []string {` (indicates this function will return a slice of strings)
+* in Go, you can return `n` number of return values in a function, unlike most languages
+* just return a, b, c and add their return values in the func definition line (bool, string, int) etc.  And you can also assign multiple vars to the return vals like `a, b, c := func(x, y, z)`
