@@ -21,9 +21,12 @@ func main() {
 
 	// Create an array of strings
 	// Arrays in Go have a fixed size (50 elements in our case)
-	// var bookings = [50]string{}
+	// example: var bookings = [50]string
 
-	var bookings [50]string
+	// Slices are an abstraction of an Array in Go
+	// They allow for variable length arrays or can have a sub-array
+	// Also index-based but will resize if needed (note how no size is given)
+	var bookings []string
 
 	// If setting a var inline, Go can infer the datatype ("" is a string, 5 is an integer)
 	// If you're not going to set it right away, you'll need to declare the dataType:
@@ -54,12 +57,12 @@ func main() {
 	fmt.Printf("You will receive a verification email at %v.\n", email)
 	remainingTickets = conferenceTickets - userTickets
 
-	// Add each user that booked to the array
-	bookings[0] = firstName + " " + lastName
-	fmt.Printf("The whole array: %v\n", bookings)
+	// Add each user that booked to the slice - will select the next available index
+	bookings = append(bookings, firstName+" "+lastName)
+	fmt.Printf("The whole slice: %v\n", bookings)
 	fmt.Printf("Just this user: %v\n", bookings[0])
 
-	// Look at the type and size of the array
+	// Look at the type and size of the slice
 	fmt.Printf("Type: %T\n", bookings)
 	fmt.Printf("Length: %v\n", len(bookings))
 	fmt.Printf("There are now %v tickets remaining\n", remainingTickets)
