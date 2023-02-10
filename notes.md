@@ -45,3 +45,11 @@
 
 * 3 levels of scope: local (inside the function/block only), package (inside the package only), global (can be accessed across packages)
 * global vars have capitalized variable name and are placed outside of functions
+
+
+## maps
+
+* to declare a map, you define the datatype of the key and the datatype of the value: `map[string]uint`; create it by using the built in make() function: `make(map[string]uint)`
+* add to the map like `mapName["key"] = value`
+* just like arrays, you can't mix datatypes in maps - they all have to match the declaration you create
+* you can make a slice of maps (variable length maps starting at size n) `var myMap = make([]map[string]int, n)`
