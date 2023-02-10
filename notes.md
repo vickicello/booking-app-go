@@ -34,3 +34,14 @@
 * if a return value is used, you also need to specify the type of the return value like `func foo(mySlice []string) []string {` (indicates this function will return a slice of strings)
 * in Go, you can return `n` number of return values in a function, unlike most languages
 * just return a, b, c and add their return values in the func definition line (bool, string, int) etc.  And you can also assign multiple vars to the return vals like `a, b, c := func(x, y, z)`
+
+## organization
+
+* we can modularize our code by adding sub packages in their own folders, and then import them into the main package
+* to export functions and variables, capitalize the first letter of the function or variable name
+* run all of the go subpackages and files with `go run .` to run the entire folder
+
+## scope
+
+* 3 levels of scope: local (inside the function/block only), package (inside the package only), global (can be accessed across packages)
+* global vars have capitalized variable name and are placed outside of functions
