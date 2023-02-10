@@ -53,3 +53,10 @@
 * add to the map like `mapName["key"] = value`
 * just like arrays, you can't mix datatypes in maps - they all have to match the declaration you create
 * you can make a slice of maps (variable length maps starting at size n) `var myMap = make([]map[string]int, n)`
+
+## structs
+
+* unlike maps, we can use structs to mix datatypes (short for 'structure') using `type MyStruct struct {}`
+* a struct is similar to a class in OOP
+* initializing a struct is similar to initializing a map: `var myStruct = make([]MyStruct, 0)`
+* syntax is cleaner than maps

@@ -5,7 +5,6 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 )
 
 // package level variables are accessible within all functions in the package
@@ -15,8 +14,16 @@ const conferenceTickets uint = 50
 var conferenceName = "Go Conference"
 var remainingTickets uint = 50
 
-// use make() to initialize a new map slice of size 0:
-var bookings = make([]map[string]string, 0)
+// use make() to initialize a new UserData struct of size 0:
+var bookings = make([]UserData, 0)
+
+// Create a custom type of data in our app; struct is named UserData
+type UserData struct {
+	firstName       string
+	lastName        string
+	email           string
+	numberOfTickets uint
+}
 
 func main() {
 	greetUsers()
@@ -58,9 +65,9 @@ func greetUsers() {
 // Inside the () are the function input params; outside are the output params or return values
 func getFirstNames() []string {
 	firstNames := []string{}
-	// now we will iterate over a list of maps rather than an array of strings:
+	// now we will iterate over a list of structs rather than an array of maps:
 	for _, booking := range bookings {
-		firstNames = append(firstNames, booking["firstName"])
+		firstNames = append(firstNames, booking.firstName)
 	}
 	return firstNames
 }
@@ -90,14 +97,13 @@ func getUserInput() (string, string, string, uint) {
 func bookTicket(userTickets uint, firstName string, lastName string, email string) {
 	remainingTickets = conferenceTickets - userTickets
 
-	// create a map for each user's data
-	var userData = make(map[string]string)
-	userData["firstName"] = firstName
-	userData["lastName"] = lastName
-	userData["email"] = email
-	// format the uint to be a string so we can add it to our map:
-	// 10 represents decimal number (base 10)
-	userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
+	// create a struct for each user's data
+	var userData = UserData{
+		firstName:       firstName,
+		lastName:        lastName,
+		email:           email,
+		numberOfTickets: userTickets,
+	}
 
 	// Add each user that booked to the slice - will select the next available index
 	bookings = append(bookings, userData)
