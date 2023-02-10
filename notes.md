@@ -60,3 +60,7 @@
 * a struct is similar to a class in OOP
 * initializing a struct is similar to initializing a map: `var myStruct = make([]MyStruct, 0)`
 * syntax is cleaner than maps
+
+## concurency and goroutines
+
+* use the keyword `go` to create a new goroutine and implement concurrency

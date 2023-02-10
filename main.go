@@ -5,6 +5,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 // package level variables are accessible within all functions in the package
@@ -35,6 +36,10 @@ func main() {
 		// Validate name, email, and tickets requested
 		if isValidName && isValidEmail && isValidTicketCount {
 			bookTicket(userTickets, firstName, lastName, email)
+			// turn sendTicket into a goroutine, making our app concurrent
+			// sendTicket will spin off into a new thread so the application won't be blocked and
+			// more users can book tickets!
+			go sendTicket(userTickets, firstName, lastName, email)
 			firstNames := getFirstNames()
 			fmt.Printf("Here are all of our bookings: %v\n", firstNames)
 
@@ -113,8 +118,19 @@ func bookTicket(userTickets uint, firstName string, lastName string, email strin
 	fmt.Printf("There are now %v tickets remaining\n\n", remainingTickets)
 }
 
+// simulate sending ticket to a user's email:
+func sendTicket(userTickets uint, firstName string, lastName string, email string) {
+	// simulate email sending by adding 10 seconds of sleep and blocking execution of the program
+	time.Sleep(10 * time.Second)
+	// Formats a string and save into var
+	var ticket = fmt.Sprintf("%v tickets for %v %v", userTickets, firstName, lastName)
+	fmt.Println("###############")
+	fmt.Printf("Sending ticket:\n %v \nto email address %v\n", ticket, email)
+	fmt.Println("###############")
+}
+
 // to execute the program:
-// go run main.go
+// go run main.go helper.go or go run .
 
 // this tutorial courtesy of
 // Techworld with Nana!
