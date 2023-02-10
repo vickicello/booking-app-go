@@ -1,5 +1,5 @@
 // declare that this file belongs to the helper package
-package helper
+package main
 
 import "strings"
 
@@ -11,7 +11,7 @@ import "strings"
 // multiple output values can be placed in () after the input params ()
 // Capitalizing the first level of a function will export it to be used in main.go
 // You can also capitalize the first letter of a var to export it
-func ValidateUserInput(firstName string, lastName string, email string, userTickets uint, remainingTickets uint) (bool, bool, bool) {
+func validateUserInput(firstName string, lastName string, email string, userTickets uint) (bool, bool, bool) {
 	isValidName := len(firstName) >= 2 && len(lastName) >= 2
 	isValidEmail := strings.Contains(email, "@")
 	isValidTicketCount := userTickets > 0 && userTickets < remainingTickets
