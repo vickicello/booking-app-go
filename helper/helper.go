@@ -1,5 +1,5 @@
-// declare that this file belongs to the main package
-package main
+// declare that this file belongs to the helper package
+package helper
 
 import "strings"
 
@@ -9,7 +9,9 @@ import "strings"
 // go run .
 
 // multiple output values can be placed in () after the input params ()
-func validateUserInput(firstName string, lastName string, email string, userTickets uint) (bool, bool, bool) {
+// Capitalizing the first level of a function will export it to be used in main.go
+// You can also capitalize the first letter of a var to export it
+func ValidateUserInput(firstName string, lastName string, email string, userTickets uint, remainingTickets uint) (bool, bool, bool) {
 	isValidName := len(firstName) >= 2 && len(lastName) >= 2
 	isValidEmail := strings.Contains(email, "@")
 	isValidTicketCount := userTickets > 0 && userTickets < remainingTickets
