@@ -8,22 +8,25 @@ import (
 	"strings"
 )
 
-func main() {
-	var conferenceName = "Go Conference"
-	const conferenceTickets uint = 50
-	var remainingTickets uint = 50
+// package level variables are accessible within all functions in the package
+// Although best practice is to make variables as local as possible
+const conferenceTickets uint = 50
 
-	greetUsers(conferenceName, conferenceTickets, remainingTickets)
+var conferenceName = "Go Conference"
+var remainingTickets uint = 50
+var bookings = []string{}
+
+func main() {
+	greetUsers()
 
 	for {
-		var bookings []string
 		firstName, lastName, email, userTickets := getUserInput()
-		isValidName, isValidEmail, isValidTicketCount := validateUserInput(firstName, lastName, email, userTickets, remainingTickets)
+		isValidName, isValidEmail, isValidTicketCount := validateUserInput(firstName, lastName, email, userTickets)
 
 		// Validate name, email, and tickets requested
 		if isValidName && isValidEmail && isValidTicketCount {
-			bookTicket(remainingTickets, conferenceTickets, userTickets, bookings, firstName, lastName, email)
-			firstNames := getFirstNames(bookings)
+			bookTicket(userTickets, firstName, lastName, email)
+			firstNames := getFirstNames()
 			fmt.Printf("Here are all of our bookings: %v\n", firstNames)
 
 			if remainingTickets == 0 {
@@ -44,14 +47,14 @@ func main() {
 	}
 }
 
-func greetUsers(confName string, confTickets uint, remainTickets uint) {
-	fmt.Printf("Welcome to the %v ticketing application!\n", confName)
-	fmt.Println("Get your tickets for the", confName, "here.")
-	fmt.Printf("There are %v tickets for the conference, and %v are still available\n", confTickets, remainTickets)
+func greetUsers() {
+	fmt.Printf("Welcome to the %v ticketing application!\n", conferenceName)
+	fmt.Println("Get your tickets for the", conferenceName, "here.")
+	fmt.Printf("There are %v tickets for the conference, and %v are still available\n", conferenceTickets, remainingTickets)
 }
 
 // Inside the () are the function input params; outside are the output params or return values
-func getFirstNames(bookings []string) []string {
+func getFirstNames() []string {
 	firstNames := []string{}
 	for _, booking := range bookings {
 		var names = strings.Fields(booking)
@@ -61,7 +64,7 @@ func getFirstNames(bookings []string) []string {
 }
 
 // multiple output values can be placed in () after the input params ()
-func validateUserInput(firstName string, lastName string, email string, userTickets uint, remainingTickets uint) (bool, bool, bool) {
+func validateUserInput(firstName string, lastName string, email string, userTickets uint) (bool, bool, bool) {
 	isValidName := len(firstName) >= 2 && len(lastName) >= 2
 	isValidEmail := strings.Contains(email, "@")
 	isValidTicketCount := userTickets > 0 && userTickets < remainingTickets
@@ -92,7 +95,7 @@ func getUserInput() (string, string, string, uint) {
 	return firstName, lastName, email, userTickets
 }
 
-func bookTicket(remainingTickets uint, conferenceTickets uint, userTickets uint, bookings []string, firstName string, lastName string, email string) {
+func bookTicket(userTickets uint, firstName string, lastName string, email string) {
 	remainingTickets = conferenceTickets - userTickets
 	// Add each user that booked to the slice - will select the next available index
 	bookings = append(bookings, firstName+" "+lastName)
