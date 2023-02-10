@@ -6,6 +6,8 @@
 * you can declare variable before providing a value like `var foo int` then provide it later using the pointer `&foo`
 * or you can provide the value when you declar it like `var foo int = 50`
 * or use the shorthand foo := 50 (Go can infer that 50 is int)
+* shorthand := cannot be used for package level variables though
+* style: const should be placed above var for package level variables
 
 ## arrays and slices
 
@@ -17,7 +19,7 @@
 
 ## loops
 
-* Go only uses for loops, no while or until (but you can basically do an until/while by adding a condition after `for` like `for remainingTickets > 0`...or you could make an infinite loop with `for true` which is hte same as just using `for` without a condition)
+* Go only uses for loops, no while or until (but you can basically do an until/while by adding a condition after `for` like `for remainingTickets > 0`...or you could make an infinite loop with `for true` which is the same as just using `for` without a condition)
 * use `break` to exit the loop, or `continue` skip the rest of this iteration and move to the next
 
 ## conditionals
