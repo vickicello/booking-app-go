@@ -64,3 +64,8 @@
 ## concurency and goroutines
 
 * use the keyword `go` to create a new goroutine and implement concurrency
+* note that by default, the main thread does not wait for any oher threads to start; once the main thread exits, the whole application exits
+* we can use waitgroups to address this: `sync.WaitGroup{}`; add them using `sync.Add()`; add `sync.Wait()` to wait for all WaitGroups to finish before exiting; use `sync.Done()` at the end of your goroutine so the Wait() function knows when to stop waiting
+* in general, concurrency is way more straightforward in go than in other languages, and goroutines are much quicker and less resource-intensive than threads
+* Go creates a 'green thread' which is an abstraction of an OS thread - which is a goroutine - only interacts with high-level goroutines instead of OS-level threads.  Cheaper and more lightweight. This is why go is so good at concurrency - can create 10s of thousands of threads quickly without impacting the app performance.
+* goroutines have 'channels' functionality so there is easy and safe communication between goroutines (unlike OS-level threads)
